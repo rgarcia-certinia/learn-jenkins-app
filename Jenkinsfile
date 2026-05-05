@@ -12,6 +12,7 @@ pipeline {
 
             steps {
                 sh '''
+                # this is a comment
                     ls -la
                     node --version
                     npm --version
