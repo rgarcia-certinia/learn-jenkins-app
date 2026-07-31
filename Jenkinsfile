@@ -35,14 +35,13 @@ pipeline {
 
                     steps {
                         sh '''
-                            npm test
+                            CI=true npm test
                         '''
                     }
 
                     post {
                         always {
-                            junit 'playwright-results/junit.xml'
-                            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                            junit 'jest-results/junit.xml'
                         }
                     }
                 }
@@ -57,10 +56,9 @@ pipeline {
             
                     steps {
                         sh '''
-                            npm i serve
                             node_modules/.bin/serve -s build &
                             sleep 10
-                            npx playwright test --reporter=html
+                            npx playwright test
                         '''
                     }
 
